@@ -1,0 +1,39 @@
+type Query {
+    rockets: [Rocket!]!
+    race(id: ID!): Race
+}
+
+type Mutation {
+    startRace(rocket1: ID!, rocket2: ID!): Race!
+}
+
+type Subscription {
+    rocketProgress(raceId: ID!, rocketId: ID!): RocketProgressEvent!
+}
+
+type RocketProgressEvent {
+    raceId: ID!
+    rocketId: ID!
+    progress: Int!
+    exploded: Boolean!
+}
+
+type RocketProgress {
+    id: ID!
+    progress: Int!
+    exploded: Boolean!
+}
+
+type Race {
+    id: ID!
+    rocket1: RocketProgress!
+    rocket2: RocketProgress!
+    winner: ID
+}
+
+type Rocket {
+    id: ID!
+    name: String!
+    description: String!
+    image: String!
+}

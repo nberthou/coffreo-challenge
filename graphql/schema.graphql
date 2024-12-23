@@ -1,0 +1,129 @@
+schema {
+  query: Query
+  mutation: Mutation
+}
+scalar Date
+scalar Time
+scalar DateTime
+scalar Timestamp
+scalar TimeZone
+scalar UtcOffset
+scalar Duration
+scalar ISO8601Duration
+scalar LocalDate
+scalar LocalTime
+scalar LocalEndTime
+scalar EmailAddress
+scalar NegativeFloat
+scalar NegativeInt
+scalar NonEmptyString
+scalar NonNegativeFloat
+scalar NonNegativeInt
+scalar NonPositiveFloat
+scalar NonPositiveInt
+scalar PhoneNumber
+scalar PositiveFloat
+scalar PositiveInt
+scalar PostalCode
+scalar UnsignedFloat
+scalar UnsignedInt
+scalar URL
+scalar BigInt
+scalar Long
+scalar Byte
+scalar UUID
+scalar GUID
+scalar Hexadecimal
+scalar HexColorCode
+scalar HSL
+scalar HSLA
+scalar IP
+scalar IPv4
+scalar IPv6
+scalar ISBN
+scalar JWT
+scalar Latitude
+scalar Longitude
+scalar MAC
+scalar Port
+scalar RGB
+scalar RGBA
+scalar SafeInt
+scalar USCurrency
+scalar Currency
+scalar JSON
+scalar JSONObject
+scalar IBAN
+scalar ObjectID
+scalar Void
+scalar DID
+scalar CountryCode
+scalar Locale
+scalar RoutingNumber
+scalar AccountNumber
+scalar Cuid
+scalar SemVer
+type Query {
+  documents(status: Status, periodBegin: Date, periodEnd: Date, documentSearch: DocumentSearch): [Document]
+  authorizationUrl(clientId: String!, redirectUri: String!): String
+  documentById(documentId: String!): Document
+}
+type Mutation {
+  checkPassword(password: String!): Boolean
+  signDocument(documentId: String!, password: String!): Boolean
+  oui(test: Test): Boolean
+}
+type Document {
+  oid: String
+  department: String
+  employee: String
+  qualification: String
+  recourse: Recourse
+  startDate: Date
+  endDate: Date
+  flexibility: Flexibility
+  position: Position
+  paidAmount: Float
+  status: Status
+  staffingCustomer: StaffingCustomer
+  staffingSupplier: StaffingSupplier
+}
+type Flexibility {
+  minDate: Date
+  maxDate: Date
+}
+type Recourse {
+  code: String
+  type: String
+  description: String
+  contractReason: String
+}
+type StaffingSupplier {
+  name: String
+}
+type StaffingCustomer {
+  name: String
+  department: String
+}
+type Position {
+  title: String
+  description: String
+  status: String
+}
+enum Status {
+  SIGNED
+  TO_SIGN
+}
+input DocumentSearch {
+  key: String!
+  value: String!
+}
+input Test {
+  key: String
+  value: String
+}
+"Exposes a URL that specifies the behavior of this scalar."
+directive @specifiedBy(
+    "The URL that specifies the behavior of this scalar."
+    url: String!
+  ) on SCALAR

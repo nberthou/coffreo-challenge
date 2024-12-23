@@ -1,0 +1,21 @@
+services:
+  # Node container
+  graphql-node:
+    build:
+      context: ./graphql
+      dockerfile: Dockerfile
+    ports:
+      - 4000:4000
+    volumes:
+      - ./graphql:/var/www
+    networks:
+      default:
+        aliases:
+          - graphql
+    working_dir: /var/www
+    command: ["sh", "-c", "yarn install && yarn run dev"]
+
+  redis:
+    image: redis:latest
+    ports:
+      - 6379:6379
