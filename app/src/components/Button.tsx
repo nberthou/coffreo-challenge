@@ -8,8 +8,8 @@ type Button = {
 
 const variants = {
   primary: {
-    backgroundColor: "#ffc107",
-    textColor: "#182030"
+    backgroundColor: "bg-[#ffc107]",
+    textColor: "text-[#182030]"
   }
 };
 
@@ -21,7 +21,7 @@ export const Button: FC<Button> = ({
   return (
     <button
       onClick={onClick}
-      className={`bg-[${variants[variant].backgroundColor}] text-[${variants[variant].textColor}]`}
+      className={`${variants[variant].backgroundColor} ${variants[variant].textColor} px-4 py-2 rounded-full font-bold my-3`}
     >
       {children}
     </button>
