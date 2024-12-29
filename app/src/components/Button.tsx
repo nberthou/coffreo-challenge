@@ -3,7 +3,7 @@ import { FC } from "react";
 type Button = {
   children: string;
   onClick: () => void;
-  variant: keyof typeof variants;
+  variant?: keyof typeof variants;
 };
 
 const variants = {
