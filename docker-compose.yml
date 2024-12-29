@@ -19,3 +19,17 @@ services:
     image: redis:latest
     ports:
       - 6379:6379
+  nextjs:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    volumes:
+      - ./app:/var/www
+    networks:
+      default:
+        aliases:
+          - nextjs
+    working_dir: /var/www
+    command: ["sh", "-c", "yarn install && yarn run dev"]
