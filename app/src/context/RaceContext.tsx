@@ -2,24 +2,49 @@ import { createContext, useState, FC, ReactNode } from "react";
 import { Race, Rocket } from "@/types";
 
 type RaceContextType = {
-  selectedRockets: Rocket[];
+  selectedRockets: { player: Rocket | null; opponent: Rocket | null };
   selectRocket: (rocket: Rocket) => void;
   currentRace: Race | null;
   setCurrentRace: (race: Race | null) => void;
+  deselectRocket: (rocket: Rocket) => void;
 };
 
-const RaceContext = createContext<RaceContextType | undefined>(undefined);
+export const RaceContext = createContext<RaceContextType | undefined>(
+  undefined
+);
 
 export const RaceProvider: FC<{ children: ReactNode }> = ({ children }) => {
-  const [selectedRockets, setSelectedRockets] = useState<Rocket[]>([]);
+  const [selectedRockets, setSelectedRockets] = useState<{
+    player: Rocket | null;
+    opponent: Rocket | null;
+  }>({ player: null, opponent: null });
   const [currentRace, setCurrentRace] = useState<Race | null>(null);
 
   const selectRocket = (rocket: Rocket) => {
-    if (
-      selectedRockets.length < 2 &&
-      !selectedRockets.find((selectedRocket) => selectedRocket.id === rocket.id)
-    ) {
-      setSelectedRockets((prevRockets) => [...prevRockets, rocket]);
+    if (selectedRockets.player === null) {
+      setSelectedRockets((prevSelectedRockets) => ({
+        ...prevSelectedRockets,
+        player: rocket
+      }));
+    } else if (selectedRockets.opponent === null) {
+      setSelectedRockets((prevSelectedRockets) => ({
+        ...prevSelectedRockets,
+        opponent: rocket
+      }));
+    }
+  };
+
+  const deselectRocket = (rocket: Rocket) => {
+    if (selectedRockets.player === rocket) {
+      setSelectedRockets((prevSelectedRockets) => ({
+        ...prevSelectedRockets,
+        player: null
+      }));
+    } else if (selectedRockets.opponent === rocket) {
+      setSelectedRockets((prevSelectedRockets) => ({
+        ...prevSelectedRockets,
+        opponent: null
+      }));
     }
   };
 
@@ -29,7 +54,8 @@ export const RaceProvider: FC<{ children: ReactNode }> = ({ children }) => {
         selectedRockets,
         selectRocket,
         currentRace,
-        setCurrentRace
+        setCurrentRace,
+        deselectRocket
       }}
     >
       {children}
