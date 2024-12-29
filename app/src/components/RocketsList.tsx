@@ -1,15 +1,24 @@
-import { useQuery } from "@apollo/client";
-import { GET_ROCKETS } from "@/lib/graphql/queries/rockets";
-import { Rocket } from "@/types";
-import { RocketCard } from "@/components/RocketCard";
-import { RaceContext } from "@/context/RaceContext";
 import { useContext } from "react";
+
+import { useQuery, useMutation } from "@apollo/client";
+import { GET_ROCKETS } from "@/lib/graphql/queries/rockets";
+import { START_RACE } from "@/lib/graphql/mutations/startRace";
+
+import { type Rocket } from "@/types";
+
+import { RaceContext } from "@/context/RaceContext";
+
+import { RocketCard } from "@/components/RocketCard";
 import { Button } from "@/components/Button";
+import { useRouter } from "next/navigation";
 
 export const RocketsList = () => {
   const { data, loading, error } = useQuery(GET_ROCKETS);
+  const [startRace, { loading: startRaceLoading, data: startRaceData }] =
+    useMutation(START_RACE);
   const { selectedRockets, selectRocket, deselectRocket } =
     useContext(RaceContext)!;
+  const router = useRouter();
 
   const titleText = selectedRockets.player
     ? "Choisissez votre adversaire !"
@@ -68,7 +77,23 @@ export const RocketsList = () => {
               )}
             </div>
             {selectedRockets.player && selectedRockets.opponent && (
-              <Button onClick={() => {}}>Commencer la course</Button>
+              <Button
+                onClick={() => {
+                  startRace({
+                    variables: {
+                      playerRocketId: selectedRockets.player!.id,
+                      opponentRocketId: selectedRockets.opponent!.id
+                    }
+                  });
+                  if (!startRaceLoading && startRaceData) {
+                    router.push(`/race/${startRaceData.startRace.id}`);
+                  }
+                }}
+              >
+                {startRaceLoading
+                  ? "La course va commencer"
+                  : "Commencer la course"}
+              </Button>
             )}
           </div>
         </>
