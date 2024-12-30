@@ -1,75 +1,28 @@
 # Challenge de développement - Course de fusées 🚀
 
-## Objectif
-Développer une application NextJS permettant de gérer des courses de fusées en temps réel via une API GraphQL.
+## Lancer l'application
 
-## Prérequis
-- Node.js
-- Docker
-- Connaissance de NextJS et GraphQL
+### Lancer le serveur back-end
 
-## Consignes
+Entrer `docker-compose up` dans le terminal.
 
-### Fonctionnalités requises
+### Lancer le serveur front-end
 
-1. **Liste des fusées**
-   - Afficher la liste des fusées disponibles
-   - Chaque fusée doit avoir son nom, son image et sa description
-   - Permettre la sélection de 2 fusées pour la course
+Entrer `npm run dev` dans le terminal.
 
-2. **Gestion de course**
-   - Bouton "Lancer la course" une fois 2 fusées sélectionnées
-   - Intégration avec le serveur GraphQL pour gérer la course
-   - Suivi en temps réel de l'avancement de la course
-
-3. **Technique**
-   - Développement dans le dossier "app"
-   - Application compatible Docker
-   - Intégration avec l'API GraphQL (documentation dans `graphql/README.md`)
-
-### Ressources
-Vous accéderez à l'API GraphQL via l'url suivante : http://localhost:4000/graphql une fois le serveur lancé, vous permettant de tester les requêtes GraphQL.
-
-## Pistes de réflexion
-
-### UI/UX
-- Utilisation d'un framework CSS (TailwindCSS, Radix UI, etc.)
-- Design soigné et responsive
-- Animations fluides et pertinentes
-- Expérience utilisateur intuitive
+## Pistes d'amélioration pour le futur
 
 ### Technique
-- Synchronisation multi-onglets
-- Persistance des données (rechargement de page)
-- Mise en place d'une CI/CD
-- Gestion des erreurs et états de chargement
-- Code propre et bien documenté
-- TypeScript
-- Performance et optimisation
 
-### Architecture
-- Structure de projet claire
-- Séparation des responsabilités
-- Patterns React modernes (hooks, context, etc.)
-- Gestion d'état efficace
+- Dockeriser le front-end (j'ai eu un problème de `ECONNREFUSED` lors du chargement des images de fusées, j'ai donc préféré mettre ça de côté.)
 
-## Évaluation
+### Fonctionnalités / UX & UI
 
-Le code sera évalué sur :
-- La qualité du code
-- Le respect des fonctionnalités demandées
-- Les bonnes pratiques React/NextJS
-- L'expérience utilisateur
-- La documentation du projet
-
-Vous pouvez fournir un document décrivant les pistes d'amélioration envisagées pour une version 2 du projet. Ce document permettra d'évaluer votre vision à long terme et votre capacité à anticiper les évolutions futures de l'application.
-
-## Pour commencer
-
-1. Cloner le repository
-2. Installer les dépendances
-3. Consulter la documentation GraphQL
-4. Développer dans le dossier "app"
-5. Tester via Docker
-
-Bon développement! 🚀
+- CRUD sur les fusées (pouvoir en ajouter, en supprimer, modifier les noms ou les descriptions, etc.)
+- Statistiques (quelles fusées ont été le plus utilisées, le pourcentage d'explosions, etc.)
+- Historique des courses
+- Revoir le design
+- Améliorer le responsive
+- Multijoueur
+- Implémenter un mode manuel avec des obstacles
+- Améliorer les animations
