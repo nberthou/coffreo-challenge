@@ -17,7 +17,7 @@ import { Button } from "@/components/Button";
 export default function RocketList() {
   const { data, loading, error } = useQuery(GET_ROCKETS);
   const [startRace] = useMutation(START_RACE);
-  const { selectedRockets, selectRocket, deselectRocket } =
+  const { selectedRockets, selectRocket, deselectRocket, setCurrentRace } =
     useContext(RaceContext)!;
   const router = useRouter();
 
@@ -86,6 +86,7 @@ export default function RocketList() {
                       opponentRocketId: selectedRockets.opponent!.id
                     }
                   }).then(({ data }) => {
+                    setCurrentRace(data.startRace);
                     const slug = data.startRace.id;
                     router.push(`/race/${slug}`);
                   });
