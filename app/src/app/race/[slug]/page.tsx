@@ -10,6 +10,7 @@ import { ROCKET_PROGRESS } from "@/lib/graphql/subscriptions/rocketProgress";
 
 import { type Rocket } from "@/types";
 import Image from "next/image";
+import { Button } from "@/components/Button";
 
 export default function Race() {
   const { slug } = useParams();
@@ -110,6 +111,11 @@ export default function Race() {
           />
         </div>
       </div>
+      {winner && (
+        <Button onClick={() => router.push("/rocket-list")}>
+          Retour à la liste des fusées
+        </Button>
+      )}
     </div>
   );
 }
